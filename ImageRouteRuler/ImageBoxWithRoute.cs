@@ -8,9 +8,9 @@ namespace ImageRouteRuler
     {
         private Pen _pen = new Pen(Color.OrangeRed, 5);
         private Font _font = new Font("Arial", 30);
-        private SolidBrush _brush = new SolidBrush(Color.Black);
+        private SolidBrush _brush = new SolidBrush(Color.OrangeRed);
 
-        private Font _fontSmall = new Font("Arial", 10,FontStyle.Bold);
+        private Font _fontSmall = new Font("Arial", 12, FontStyle.Bold);
         private SolidBrush _brushSmall = new SolidBrush(Color.OrangeRed);
 
         public void DrawRoute(Graphics graphics, Route route, Settings settings)
@@ -29,8 +29,8 @@ namespace ImageRouteRuler
 
                 if (settings.DrawLabels)
                 {
-                    graphics.DrawString(point.DistanceFromLast.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 20);
-                    graphics.DrawString(point.DistanceFromBegining.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 30);
+                    graphics.DrawString(point.DistanceFromLast.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 10);
+                    graphics.DrawString(point.DistanceFromBegining.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 22);
                 }
 
             }

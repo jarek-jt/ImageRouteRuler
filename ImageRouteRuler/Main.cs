@@ -14,8 +14,7 @@ namespace ImageRouteRuler
         {
             InitializeComponent();
 
-            settings = new Settings();
-            settings.Dpi = imageBox1?.Image?.HorizontalResolution ?? 0;
+            UpdateSettings();
 
             route = new Route(settings);
 
@@ -88,6 +87,9 @@ namespace ImageRouteRuler
 
         private void UpdateSettings()
         {
+            if (settings == null)
+                settings = new Settings();
+
             if (Double.TryParse(textScale.Text, out double scale))
             {
                 if (scale > 0 && scale < 100000)
