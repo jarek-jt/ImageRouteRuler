@@ -63,6 +63,7 @@ namespace ImageRouteRuler
                 {
                     imageBox1.Image = Image.FromFile(openFile.FileName);
                     SetSettings(openFile);
+                    route.DeleteAll();
                 }
             }
         }
