@@ -24,7 +24,7 @@ namespace ImageRouteRuler
         private void ImageBox1_Paint(object sender, PaintEventArgs e)
         {
             base.OnPaint(e);
-            imageBox1.DrawRoute(e.Graphics, route);
+            imageBox1.DrawRoute(e.Graphics, route, settings);
         }
 
         private void BReset_Click(object sender, EventArgs e)
@@ -62,30 +62,40 @@ namespace ImageRouteRuler
                 if (openFile.ShowDialog() == DialogResult.OK)
                 {
                     imageBox1.Image = Image.FromFile(openFile.FileName);
-                    SetSettings(openFile);
+
+                    settings.File = openFile.FileName;
                     route.DeleteAll();
+
+                    UpdateSettings();
+
+                    imageBox1.Invalidate();
                 }
             }
         }
 
         private void TextScale_TextChanged(object sender, EventArgs e)
         {
+            UpdateSettings();
+            route.Recalculate();
+            imageBox1.Invalidate();
+        }
+
+        private void CheckLabels_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateSettings();
+            imageBox1.Invalidate();
+        }
+
+        private void UpdateSettings()
+        {
             if (Double.TryParse(textScale.Text, out double scale))
             {
                 if (scale > 0 && scale < 100000)
-                {
                     settings.Scale = scale;
-                    route.Recalculate();
-                    imageBox1.Invalidate();
-                }
             }
 
-        }
-
-        private void SetSettings(OpenFileDialog openFile)
-        {
-            settings.File = openFile.FileName;
-            settings.Dpi = imageBox1.Image.HorizontalResolution;
+            settings.Dpi = imageBox1.Image?.HorizontalResolution??0;
+            settings.DrawLabels = checkLabels.Checked;
         }
     }
 }

@@ -35,6 +35,7 @@
             this.lScale = new System.Windows.Forms.Label();
             this.textScale = new System.Windows.Forms.TextBox();
             this.imageBox1 = new ImageRouteRuler.ImageBoxWithRoute();
+            this.checkLabels = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // bReset
@@ -107,11 +108,25 @@
             this.imageBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImageBox1_MouseDown);
             this.imageBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImageBox1_MouseUp);
             // 
+            // checkLabels
+            // 
+            this.checkLabels.AutoSize = true;
+            this.checkLabels.Checked = true;
+            this.checkLabels.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkLabels.Location = new System.Drawing.Point(1042, 132);
+            this.checkLabels.Name = "checkLabels";
+            this.checkLabels.Size = new System.Drawing.Size(57, 17);
+            this.checkLabels.TabIndex = 6;
+            this.checkLabels.Text = "Labels";
+            this.checkLabels.UseVisualStyleBackColor = true;
+            this.checkLabels.CheckedChanged += new System.EventHandler(this.CheckLabels_CheckedChanged);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1123, 216);
+            this.Controls.Add(this.checkLabels);
             this.Controls.Add(this.textScale);
             this.Controls.Add(this.lScale);
             this.Controls.Add(this.bLoadImage);
@@ -133,6 +148,7 @@
         private System.Windows.Forms.Button bLoadImage;
         private System.Windows.Forms.Label lScale;
         private System.Windows.Forms.TextBox textScale;
+        private System.Windows.Forms.CheckBox checkLabels;
     }
 }
 

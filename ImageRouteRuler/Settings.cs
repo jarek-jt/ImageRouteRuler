@@ -30,6 +30,8 @@
             }
         }
 
+        public bool DrawLabels { get; set; }
+
         public Settings(double scale = 50000)
         {
             Scale = scale;

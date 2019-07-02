@@ -13,21 +13,25 @@ namespace ImageRouteRuler
         private Font _fontSmall = new Font("Arial", 10,FontStyle.Bold);
         private SolidBrush _brushSmall = new SolidBrush(Color.OrangeRed);
 
-        public void DrawRoute(Graphics graphics, Route route)
+        public void DrawRoute(Graphics graphics, Route route, Settings settings)
         {
-            DrawPoints(graphics, route);
+            DrawPoints(graphics, route, settings);
             DrawLines(graphics, route);
             DrawDistance(graphics, route);
         }
 
-        private void DrawPoints(Graphics graphics, Route points)
+        private void DrawPoints(Graphics graphics, Route points, Settings settings)
         {
             foreach (var point in points.Points())
             {
                 Point scaled = this.GetOffsetPoint(point.Point);
                 graphics.DrawEllipse(_pen, scaled.X - 2, scaled.Y - 2, 5, 5);
-                graphics.DrawString(point.DistanceFromLast.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 20);
-                graphics.DrawString(point.DistanceFromBegining.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 30);
+
+                if (settings.DrawLabels)
+                {
+                    graphics.DrawString(point.DistanceFromLast.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 20);
+                    graphics.DrawString(point.DistanceFromBegining.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 30);
+                }
 
             }
         }
