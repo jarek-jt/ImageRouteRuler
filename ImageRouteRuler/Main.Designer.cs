@@ -34,8 +34,10 @@
             this.bLoadImage = new System.Windows.Forms.Button();
             this.lScale = new System.Windows.Forms.Label();
             this.textScale = new System.Windows.Forms.TextBox();
-            this.imageBox1 = new ImageRouteRuler.ImageBoxWithRoute();
             this.checkLabels = new System.Windows.Forms.CheckBox();
+            this.bSaveTrack = new System.Windows.Forms.Button();
+            this.bLoadRoute = new System.Windows.Forms.Button();
+            this.imageBox1 = new ImageRouteRuler.ImageBoxWithRoute();
             this.SuspendLayout();
             // 
             // bReset
@@ -91,6 +93,42 @@
             this.textScale.Text = "50000";
             this.textScale.TextChanged += new System.EventHandler(this.TextScale_TextChanged);
             // 
+            // checkLabels
+            // 
+            this.checkLabels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkLabels.AutoSize = true;
+            this.checkLabels.Checked = true;
+            this.checkLabels.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkLabels.Location = new System.Drawing.Point(1042, 132);
+            this.checkLabels.Name = "checkLabels";
+            this.checkLabels.Size = new System.Drawing.Size(57, 17);
+            this.checkLabels.TabIndex = 6;
+            this.checkLabels.Text = "Labels";
+            this.checkLabels.UseVisualStyleBackColor = true;
+            this.checkLabels.CheckedChanged += new System.EventHandler(this.CheckLabels_CheckedChanged);
+            // 
+            // bSaveTrack
+            // 
+            this.bSaveTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bSaveTrack.Location = new System.Drawing.Point(1036, 103);
+            this.bSaveTrack.Name = "bSaveTrack";
+            this.bSaveTrack.Size = new System.Drawing.Size(75, 23);
+            this.bSaveTrack.TabIndex = 7;
+            this.bSaveTrack.Text = "Save track";
+            this.bSaveTrack.UseVisualStyleBackColor = true;
+            this.bSaveTrack.Click += new System.EventHandler(this.BSaveTrack_Click);
+            // 
+            // bLoadRoute
+            // 
+            this.bLoadRoute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bLoadRoute.Location = new System.Drawing.Point(1036, 74);
+            this.bLoadRoute.Name = "bLoadRoute";
+            this.bLoadRoute.Size = new System.Drawing.Size(75, 23);
+            this.bLoadRoute.TabIndex = 8;
+            this.bLoadRoute.Text = "Load track";
+            this.bLoadRoute.UseVisualStyleBackColor = true;
+            this.bLoadRoute.Click += new System.EventHandler(this.BLoadRoute_Click);
+            // 
             // imageBox1
             // 
             this.imageBox1.AllowDoubleClick = true;
@@ -108,24 +146,13 @@
             this.imageBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ImageBox1_MouseDown);
             this.imageBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ImageBox1_MouseUp);
             // 
-            // checkLabels
-            // 
-            this.checkLabels.AutoSize = true;
-            this.checkLabels.Checked = true;
-            this.checkLabels.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkLabels.Location = new System.Drawing.Point(1042, 132);
-            this.checkLabels.Name = "checkLabels";
-            this.checkLabels.Size = new System.Drawing.Size(57, 17);
-            this.checkLabels.TabIndex = 6;
-            this.checkLabels.Text = "Labels";
-            this.checkLabels.UseVisualStyleBackColor = true;
-            this.checkLabels.CheckedChanged += new System.EventHandler(this.CheckLabels_CheckedChanged);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1123, 216);
+            this.Controls.Add(this.bLoadRoute);
+            this.Controls.Add(this.bSaveTrack);
             this.Controls.Add(this.checkLabels);
             this.Controls.Add(this.textScale);
             this.Controls.Add(this.lScale);
@@ -149,6 +176,8 @@
         private System.Windows.Forms.Label lScale;
         private System.Windows.Forms.TextBox textScale;
         private System.Windows.Forms.CheckBox checkLabels;
+        private System.Windows.Forms.Button bSaveTrack;
+        private System.Windows.Forms.Button bLoadRoute;
     }
 }
 

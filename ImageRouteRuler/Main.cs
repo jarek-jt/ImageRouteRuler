@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ImageRouteRuler
@@ -98,6 +99,37 @@ namespace ImageRouteRuler
 
             settings.Dpi = imageBox1.Image?.HorizontalResolution??0;
             settings.DrawLabels = checkLabels.Checked;
+        }
+
+        private void BSaveTrack_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.DefaultExt = "json files (*.json)|*.json";
+
+                if(dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Serializer.Save<PointInfo>(dialog.FileName, route.Points());
+                }
+            }
+        }
+
+        private void BLoadRoute_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFile = new OpenFileDialog())
+            {
+                openFile.Filter = "Json files (*.json) | *.json";
+
+                if (openFile.ShowDialog() == DialogResult.OK)
+                {
+                    var loaded = Serializer.Load<PointInfo>(openFile.FileName);
+                    
+                    route.DeleteAll();
+                    route.AddRange(loaded.Select(x => x.Point));
+                   
+                    imageBox1.Invalidate();
+                }
+            }
         }
     }
 }

@@ -33,6 +33,14 @@ namespace ImageRouteRuler
             }
         }
 
+        public void AddRange(IEnumerable<Point> points)
+        {
+            foreach (var point in points)
+            {
+                _points.Add(CreatePointInfo(point));
+            }
+        }
+
         public void AddPoint(Point point)
         {
 
