@@ -8,7 +8,7 @@ namespace ImageRouteRuler
     public class Route
     {
         private List<PointInfo> _points;
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public Route(Settings settings)
         {
@@ -17,21 +17,9 @@ namespace ImageRouteRuler
         }
 
 
-        public int Count
-        {
-            get
-            {
-                return _points.Count;
-            }
-        }
+        public int Count => _points.Count;
 
-        public decimal WholeDictance
-        {
-            get
-            {
-                return Convert.ToDecimal(_points.Count>0 ? _points.Last().DistanceFromBegining : 0);
-            }
-        }
+        public decimal WholeDistance => Convert.ToDecimal(_points.Count > 0 ? _points.Last().DistanceFromBeginning : 0);
 
         public void AddRange(IEnumerable<Point> points)
         {
@@ -55,7 +43,7 @@ namespace ImageRouteRuler
 
         public void DeleteAll()
         {
-            _points.RemoveAll(x => 1 == 1);
+            _points.RemoveAll(x => true);
         }
 
         public IEnumerable<PointInfo> Points()
@@ -68,7 +56,7 @@ namespace ImageRouteRuler
             var routeCopy = _points.Select(x => x.Clone()).ToList();
             _points = new List<PointInfo>();
 
-            for (int i = 0; i < routeCopy.Count; i++)
+            for (var i = 0; i < routeCopy.Count; i++)
             {
                 var point = ((PointInfo)routeCopy[i]).Point;
                 _points.Add(CreatePointInfo(point));
@@ -78,17 +66,17 @@ namespace ImageRouteRuler
         private PointInfo CreatePointInfo(Point point)
         {
             if (_points.Count == 0)
-                return new PointInfo(point,0,0);
+                return new PointInfo(point, 0, 0);
 
 
             var distance = Convert.ToDecimal(PixelsToKm(Distance(_points.Last().Point, point)));
-            var distFromBegining = _points.Last().DistanceFromBegining + distance;
+            var distFromBeginning = _points.Last().DistanceFromBeginning + distance;
 
-            return new PointInfo(point, distance, distFromBegining);
+            return new PointInfo(point, distance, distFromBeginning);
 
         }
 
-        private double Distance (Point from, Point to)
+        private double Distance(Point from, Point to)
         {
             return Math.Sqrt(Math.Pow(to.X - from.X, 2) + Math.Pow(to.Y - from.Y, 2));
         }

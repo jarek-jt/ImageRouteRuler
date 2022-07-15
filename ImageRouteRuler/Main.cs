@@ -8,8 +8,8 @@ namespace ImageRouteRuler
     public partial class Main : Form
     {
         private Point _mouseDown = new Point();
-        private Settings settings;
-        private Route route;
+        private Settings _settings;
+        private readonly Route _route;
 
         public Main()
         {
@@ -17,27 +17,27 @@ namespace ImageRouteRuler
 
             UpdateSettings();
 
-            route = new Route(settings);
+            _route = new Route(_settings);
 
         }
 
         private void ImageBox1_Paint(object sender, PaintEventArgs e)
         {
             base.OnPaint(e);
-            imageBox1.DrawRoute(e.Graphics, route, settings);
+            imageBox1.DrawRoute(e.Graphics, _route, _settings);
         }
 
         private void BReset_Click(object sender, EventArgs e)
         {
-            route.DeleteAll();
+            _route.DeleteAll();
             imageBox1.Invalidate();
         }
 
         private void ImageBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if(e.Button==MouseButtons.Left && e.Location==_mouseDown)
+            if (e.Button == MouseButtons.Left && e.Location == _mouseDown)
             {
-                route.AddPoint(imageBox1.PointToImage(e.Location));
+                _route.AddPoint(imageBox1.PointToImage(e.Location));
                 imageBox1.Invalidate();
             }
         }
@@ -49,8 +49,8 @@ namespace ImageRouteRuler
 
         private void BDelLast_Click(object sender, EventArgs e)
         {
-                route.DeleteLast();
-                imageBox1.Invalidate();
+            _route.DeleteLast();
+            imageBox1.Invalidate();
         }
 
         private void BLoadImage_Click(object sender, EventArgs e)
@@ -63,8 +63,8 @@ namespace ImageRouteRuler
                 {
                     imageBox1.Image = Image.FromFile(openFile.FileName);
 
-                    settings.File = openFile.FileName;
-                    route.DeleteAll();
+                    _settings.File = openFile.FileName;
+                    _route.DeleteAll();
 
                     UpdateSettings();
 
@@ -76,7 +76,7 @@ namespace ImageRouteRuler
         private void TextScale_TextChanged(object sender, EventArgs e)
         {
             UpdateSettings();
-            route.Recalculate();
+            _route.Recalculate();
             imageBox1.Invalidate();
         }
 
@@ -88,17 +88,17 @@ namespace ImageRouteRuler
 
         private void UpdateSettings()
         {
-            if (settings == null)
-                settings = new Settings();
+            if (_settings == null)
+                _settings = new Settings();
 
             if (Double.TryParse(textScale.Text, out double scale))
             {
                 if (scale > 0 && scale < 100000)
-                    settings.Scale = scale;
+                    _settings.Scale = scale;
             }
 
-            settings.Dpi = imageBox1.Image?.HorizontalResolution??0;
-            settings.DrawLabels = checkLabels.Checked;
+            _settings.Dpi = imageBox1.Image?.HorizontalResolution ?? 0;
+            _settings.DrawLabels = checkLabels.Checked;
         }
 
         private void BSaveTrack_Click(object sender, EventArgs e)
@@ -107,9 +107,9 @@ namespace ImageRouteRuler
             {
                 dialog.DefaultExt = "json files (*.json)|*.json";
 
-                if(dialog.ShowDialog() == DialogResult.OK)
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Serializer.Save<PointInfo>(dialog.FileName, route.Points());
+                    Serializer.Save<PointInfo>(dialog.FileName, _route.Points());
                 }
             }
         }
@@ -123,10 +123,10 @@ namespace ImageRouteRuler
                 if (openFile.ShowDialog() == DialogResult.OK)
                 {
                     var loaded = Serializer.Load<PointInfo>(openFile.FileName);
-                    
-                    route.DeleteAll();
-                    route.AddRange(loaded.Select(x => x.Point));
-                   
+
+                    _route.DeleteAll();
+                    _route.AddRange(loaded.Select(x => x.Point));
+
                     imageBox1.Invalidate();
                 }
             }

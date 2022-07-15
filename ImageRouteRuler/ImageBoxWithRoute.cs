@@ -6,12 +6,12 @@ namespace ImageRouteRuler
 {
     public class ImageBoxWithRoute : Cyotek.Windows.Forms.ImageBox
     {
-        private Pen _pen = new Pen(Color.OrangeRed, 5);
-        private Font _font = new Font("Arial", 30);
-        private SolidBrush _brush = new SolidBrush(Color.OrangeRed);
+        private readonly Pen _pen = new Pen(Color.OrangeRed, 5);
+        private readonly Font _font = new Font("Arial", 30);
+        private readonly SolidBrush _brush = new SolidBrush(Color.OrangeRed);
 
-        private Font _fontSmall = new Font("Arial", 12, FontStyle.Bold);
-        private SolidBrush _brushSmall = new SolidBrush(Color.OrangeRed);
+        private readonly Font _fontSmall = new Font("Arial", 12, FontStyle.Bold);
+        private readonly SolidBrush _brushSmall = new SolidBrush(Color.OrangeRed);
 
         public void DrawRoute(Graphics graphics, Route route, Settings settings)
         {
@@ -24,13 +24,13 @@ namespace ImageRouteRuler
         {
             foreach (var point in points.Points())
             {
-                Point scaled = this.GetOffsetPoint(point.Point);
+                var scaled = this.GetOffsetPoint(point.Point);
                 graphics.DrawEllipse(_pen, scaled.X - 2, scaled.Y - 2, 5, 5);
 
                 if (settings.DrawLabels)
                 {
                     graphics.DrawString(point.DistanceFromLast.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 10);
-                    graphics.DrawString(point.DistanceFromBegining.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 22);
+                    graphics.DrawString(point.DistanceFromBeginning.ToString("0.000"), _fontSmall, _brushSmall, scaled.X + 20, scaled.Y + 22);
                 }
 
             }
@@ -40,7 +40,7 @@ namespace ImageRouteRuler
         {
             if (route.Count > 1)
             {
-                GraphicsPath path = new GraphicsPath();
+                var path = new GraphicsPath();
                 path.AddLines(route.Points().Select(x => this.GetOffsetPoint(x.Point)).ToArray());
                 graphics.DrawPath(_pen, path);
             }
@@ -48,7 +48,7 @@ namespace ImageRouteRuler
 
         private void DrawDistance(Graphics graphics, Route route)
         {
-            graphics.DrawString(route.WholeDictance.ToString("0.000") + " km", _font, _brush, 0, 0);
+            graphics.DrawString(route.WholeDistance.ToString("0.000") + " km", _font, _brush, 0, 0);
         }
     }
 }

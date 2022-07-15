@@ -7,18 +7,18 @@ namespace ImageRouteRuler
     {
         public Point Point { get; set; }
         public decimal DistanceFromLast { get; set; }
-        public decimal DistanceFromBegining { get; set; }
+        public decimal DistanceFromBeginning { get; set; }
 
-        public PointInfo(Point point, decimal distanceFromLast, decimal distanceFromBegining)
+        public PointInfo(Point point, decimal distanceFromLast, decimal distanceFromBeginning)
         {
             Point = point;
             DistanceFromLast = distanceFromLast;
-            DistanceFromBegining = distanceFromBegining;
+            DistanceFromBeginning = distanceFromBeginning;
         }
 
         public object Clone()
         {
-            return new PointInfo(Point, DistanceFromLast, DistanceFromBegining);
+            return new PointInfo(Point, DistanceFromLast, DistanceFromBeginning);
         }
     }
 }
